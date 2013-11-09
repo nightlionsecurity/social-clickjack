@@ -23,7 +23,6 @@
 
 	<script type="text/javascript">
 
-		//var networks = [ 'Facebook', 'Twitter', 'GooglePlus' ];
 		var networks = [ 'Facebook', 'Twitter', 'GooglePlus' ];
 		var loggedInCount = 0;
 		var twitterLoggedIn = false;
@@ -136,12 +135,7 @@ onerror="show_login_status('GooglePlus', false)"
 src="https://plus.google.com/up/?continue=https://www.google.com/intl/en/images/logos/accounts_logo.png&type=st&gpsrc=ogpy0" />
 
 <img style="display:none;" src="https://twitter.com/login?redirect_after_login=%2Fimages%2Fspinner.gif" onload="show_login_status('Twitter', true)" onerror="show_login_status('Twitter', false)" />
-<!--
-Test which network?:
-<input id="rb-fb" type="radio" name="network" value="fb" onchange="network='facebook'" disabled="disabled"/>Facebook
-<input id="rb-tw" type="radio" name="network" value="tw" onchange="network='twitter'" disabled="disabled"/>Twitter
-<input id="rb-gp" type="radio" name="network" value="gp" onchange="network='googlePlus'" disabled="disabled"/>GooglePlus
--->
+
 <br/>
 
 <div id="fb-root"></div>
@@ -152,13 +146,19 @@ Test which network?:
 	<div id="TwitterStatus" class="outputStatus"></div>
 	<div id="GooglePlusStatus" class="outputStatus"></div>
 
- <div id="googleWrapper" style="position: absolute; opacity: 0; filter: alpha(opacity = 0); margin-left: -50px; z-index: 100;"><g:plusone></g:plusone></div> 
+ <div id="googleWrapper" style="position: absolute; opacity: 0; filter: alpha(opacity = 0); margin-left: -50px; z-index: 100;">
+
+<div class="g-follow" data-annotation="bubble" data-height="20" data-href="//plus.google.com/106033543167794860619" data-rel="author"></div>
+
+<!--<g:plusone></g:plusone>-->
+<g:follow href="https://plus.google.com/[YOURNAME]" rel="{relationshipType}"></g:follow>
+</div> 
  
 
 <script>
     window.fbAsyncInit = function(){
         //alert('fbAsyncInit called');
-        FB.init({ appId:'230747760380931', status:true,  cookie:true, xfbml:true});
+        FB.init({ appId:'[YOURAPPID]', status:true,  cookie:true, xfbml:true});
         FB.getLoginStatus(function(response){
             if (response.status != "unknown")
             {

